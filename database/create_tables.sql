@@ -1,6 +1,21 @@
 CREATE TABLE economic_data (
-    date DATE PRIMARY KEY,
-    indicator VARCHAR(255),
-    value NUMERIC,
-    presidency VARCHAR(255)
+    indicator_key VARCHAR(50) NOT NULL,
+    indicator VARCHAR(255) NOT NULL,
+    frequency VARCHAR(50) NOT NULL,
+    unit VARCHAR(255) NOT NULL,
+    presidency_key VARCHAR(50) NOT NULL,
+    presidency VARCHAR(255) NOT NULL,
+    president VARCHAR(255) NOT NULL,
+    term_number INTEGER NOT NULL,
+    term_start DATE NOT NULL,
+    term_end DATE NOT NULL,
+    latest_available_date DATE NOT NULL,
+    observation_date DATE NOT NULL,
+    period_end DATE NOT NULL,
+    value NUMERIC NOT NULL,
+    period_index INTEGER NOT NULL,
+    index_base_value NUMERIC NOT NULL,
+    indexed_to_start NUMERIC NOT NULL,
+    change_from_start NUMERIC NOT NULL,
+    PRIMARY KEY (indicator_key, presidency_key, observation_date)
 );

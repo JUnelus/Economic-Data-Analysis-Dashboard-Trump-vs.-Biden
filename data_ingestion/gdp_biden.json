@@ -1,1 +1,97 @@
-{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","observation_start":"2021-01-20","observation_end":"2024-09-01","units":"lin","output_type":1,"file_type":"json","order_by":"observation_date","sort_order":"asc","count":14,"offset":0,"limit":100000,"observations":[{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2021-01-01","value":"22656.793"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2021-04-01","value":"23368.861"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2021-07-01","value":"23921.991"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2021-10-01","value":"24777.038"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2022-01-01","value":"25215.491"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2022-04-01","value":"25805.791"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2022-07-01","value":"26272.011"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2022-10-01","value":"26734.277"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2023-01-01","value":"27164.359"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2023-04-01","value":"27453.815"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2023-07-01","value":"27967.697"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2023-10-01","value":"28296.967"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2024-01-01","value":"28624.069"},{"realtime_start":"2024-09-29","realtime_end":"2024-09-29","date":"2024-04-01","value":"29016.714"}]}
+{
+  "series_id": "GDP",
+  "indicator": "GDP",
+  "frequency": "quarterly",
+  "unit": "Billions of Dollars",
+  "presidency_key": "biden_2021",
+  "presidency": "Biden (2021\u20132025)",
+  "president": "Joe Biden",
+  "term_number": 1,
+  "term_start": "2021-01-20",
+  "term_end": "2025-01-19",
+  "latest_available_date": "2025-12-31",
+  "source": "https://fred.stlouisfed.org/graph/fredgraph.csv",
+  "count": 16,
+  "observations": [
+    {
+      "date": "2021-01-01",
+      "period_end": "2021-03-31",
+      "value": 22680.693
+    },
+    {
+      "date": "2021-04-01",
+      "period_end": "2021-06-30",
+      "value": 23425.91
+    },
+    {
+      "date": "2021-07-01",
+      "period_end": "2021-09-30",
+      "value": 23982.379
+    },
+    {
+      "date": "2021-10-01",
+      "period_end": "2021-12-31",
+      "value": 24813.6
+    },
+    {
+      "date": "2022-01-01",
+      "period_end": "2022-03-31",
+      "value": 25250.347
+    },
+    {
+      "date": "2022-04-01",
+      "period_end": "2022-06-30",
+      "value": 25861.292
+    },
+    {
+      "date": "2022-07-01",
+      "period_end": "2022-09-30",
+      "value": 26336.304
+    },
+    {
+      "date": "2022-10-01",
+      "period_end": "2022-12-31",
+      "value": 26770.514
+    },
+    {
+      "date": "2023-01-01",
+      "period_end": "2023-03-31",
+      "value": 27216.445
+    },
+    {
+      "date": "2023-04-01",
+      "period_end": "2023-06-30",
+      "value": 27530.055
+    },
+    {
+      "date": "2023-07-01",
+      "period_end": "2023-09-30",
+      "value": 28074.846
+    },
+    {
+      "date": "2023-10-01",
+      "period_end": "2023-12-31",
+      "value": 28424.722
+    },
+    {
+      "date": "2024-01-01",
+      "period_end": "2024-03-31",
+      "value": 28708.161
+    },
+    {
+      "date": "2024-04-01",
+      "period_end": "2024-06-30",
+      "value": 29147.044
+    },
+    {
+      "date": "2024-07-01",
+      "period_end": "2024-09-30",
+      "value": 29511.664
+    },
+    {
+      "date": "2024-10-01",
+      "period_end": "2024-12-31",
+      "value": 29825.182
+    }
+  ]
+}

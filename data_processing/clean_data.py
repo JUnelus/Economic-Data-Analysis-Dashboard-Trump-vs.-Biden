@@ -1,30 +1,105 @@
-import os
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
 import pandas as pd
-from sqlalchemy import create_engine
-from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+	sys.path.insert(0, str(PROJECT_ROOT))
 
-# Create an SQLAlchemy engine and Connect to PostgreSQL
-db_url = f"postgresql://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@{os.getenv('POSTGRES_HOST')}/{os.getenv('POSTGRES_DB')}"
-engine = create_engine(db_url)
+from project_config import INDICATORS, PRESIDENCIES, PROCESSED_DATA_PATH, RAW_DATA_DIR
 
-# Query data from PostgreSQL
-query = """
-SELECT * FROM economic_data WHERE indicator IN ('GDP', 'Unemployment Rate', 'CPI')
-"""
-df = pd.read_sql(query, engine)
 
-# Check for missing values
-print(df.isnull().sum())
+def load_term_json(indicator_key: str, presidency: dict) -> pd.DataFrame:
+	file_path = RAW_DATA_DIR / f"{indicator_key.lower()}_{presidency['file_stub']}.json"
+	with file_path.open(encoding="utf-8") as file:
+		payload = json.load(file)
 
-# Perform any necessary data cleaning
-df = df.dropna()  # Drop rows with missing values
+	observations = payload.get("observations", [])
+	frame = pd.DataFrame(observations)
 
-# Convert 'value' column to numeric (just in case)
-df['value'] = pd.to_numeric(df['value'])
+	if frame.empty:
+		return pd.DataFrame(
+			columns=[
+				"indicator_key",
+				"indicator",
+				"frequency",
+				"unit",
+				"presidency_key",
+				"presidency",
+				"president",
+				"term_number",
+				"term_start",
+				"term_end",
+				"latest_available_date",
+				"observation_date",
+				"period_end",
+				"value",
+			]
+		)
 
-# Group data by presidency and indicator for summary statistics
-summary = df.groupby(['presidency', 'indicator'])['value'].agg(['mean', 'max', 'min'])
-print(summary)
+	frame["indicator_key"] = indicator_key
+	frame["indicator"] = payload["indicator"]
+	frame["frequency"] = payload["frequency"]
+	frame["unit"] = payload["unit"]
+	frame["presidency_key"] = payload["presidency_key"]
+	frame["presidency"] = payload["presidency"]
+	frame["president"] = payload["president"]
+	frame["term_number"] = payload["term_number"]
+	frame["term_start"] = payload["term_start"]
+	frame["term_end"] = payload["term_end"]
+	frame["latest_available_date"] = payload["latest_available_date"]
+	frame = frame.rename(columns={"date": "observation_date"})
+	return frame[
+		[
+			"indicator_key",
+			"indicator",
+			"frequency",
+			"unit",
+			"presidency_key",
+			"presidency",
+			"president",
+			"term_number",
+			"term_start",
+			"term_end",
+			"latest_available_date",
+			"observation_date",
+			"period_end",
+			"value",
+		]
+	]
+
+
+def build_dataset() -> pd.DataFrame:
+	frames = [
+		load_term_json(indicator_key, presidency)
+		for indicator_key in INDICATORS
+		for presidency in PRESIDENCIES
+	]
+	dataset = pd.concat(frames, ignore_index=True)
+
+	date_columns = ["term_start", "term_end", "latest_available_date", "observation_date", "period_end"]
+	for column in date_columns:
+		dataset[column] = pd.to_datetime(dataset[column])
+
+	dataset["value"] = pd.to_numeric(dataset["value"], errors="coerce")
+	dataset = dataset.dropna(subset=["value"]).sort_values(["indicator_key", "term_start", "observation_date"])
+
+	dataset["period_index"] = dataset.groupby(["indicator_key", "presidency_key"]).cumcount() + 1
+	dataset["index_base_value"] = dataset.groupby(["indicator_key", "presidency_key"])["value"].transform("first")
+	dataset["indexed_to_start"] = (dataset["value"] / dataset["index_base_value"]) * 100
+	dataset["change_from_start"] = dataset["value"] - dataset["index_base_value"]
+
+	return dataset.reset_index(drop=True)
+
+
+if __name__ == "__main__":
+	dataset = build_dataset()
+	PROCESSED_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+	dataset.to_csv(PROCESSED_DATA_PATH, index=False)
+
+	print(f"Saved {len(dataset)} cleaned rows to {PROCESSED_DATA_PATH}")
+	print(dataset.groupby(["presidency", "indicator"]).agg(observations=("value", "size"), latest_value=("value", "last")))

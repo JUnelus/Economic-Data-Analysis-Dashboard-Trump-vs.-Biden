@@ -1,39 +1,51 @@
-import os
-import json
-import pandas as pd
-from sqlalchemy import create_engine
-from dotenv import load_dotenv
+from __future__ import annotations
 
-# Load environment variables from .env file
+import os
+import sys
+from typing import cast
+from pathlib import Path
+
+import pandas as pd
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from project_config import DB_TABLE_NAME, PROCESSED_DATA_PATH
+
 load_dotenv()
 
-# Create an SQLAlchemy engine and Connect to PostgreSQL
-db_url = f"postgresql://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@{os.getenv('POSTGRES_HOST')}/{os.getenv('POSTGRES_DB')}"
-engine = create_engine(db_url)
 
-# Function to load JSON data and prepare DataFrame
-def load_json_to_df(filename, indicator, presidency):
-    with open(filename) as f:
-        data = json.load(f)
-    df = pd.DataFrame(data['observations'])
-    df['indicator'] = indicator
-    df['presidency'] = presidency
-    df['value'] = df['value'].astype(float)
-    df['date'] = pd.to_datetime(df['date'])
-    return df[['date', 'value', 'indicator', 'presidency']]
+def build_db_url() -> str:
+    required_vars = ["POSTGRES_USER", "POSTGRES_PASSWORD", "POSTGRES_HOST", "POSTGRES_DB"]
+    missing = [name for name in required_vars if not os.getenv(name)]
+    if missing:
+        raise EnvironmentError(f"Missing PostgreSQL environment variables: {', '.join(missing)}")
 
-# Load Trump's data
-gdp_trump = load_json_to_df('gdp_trump.json', 'GDP', 'Trump')
-unemployment_trump = load_json_to_df('unemployment_trump.json', 'Unemployment Rate', 'Trump')
-cpi_trump = load_json_to_df('cpi_trump.json', 'CPI', 'Trump')
+    return (
+        f"postgresql+psycopg://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}"
+        f"@{os.getenv('POSTGRES_HOST')}/{os.getenv('POSTGRES_DB')}"
+    )
 
-# Load Biden's data
-gdp_biden = load_json_to_df('gdp_biden.json', 'GDP', 'Biden')
-unemployment_biden = load_json_to_df('unemployment_biden.json', 'Unemployment Rate', 'Biden')
-cpi_biden = load_json_to_df('cpi_biden.json', 'CPI', 'Biden')
 
-# Concatenate all data
-all_data = pd.concat([gdp_trump, unemployment_trump, cpi_trump, gdp_biden, unemployment_biden, cpi_biden])
+def load_processed_data() -> pd.DataFrame:
+    if not PROCESSED_DATA_PATH.exists():
+        raise FileNotFoundError(
+            f"Processed dataset not found at {PROCESSED_DATA_PATH}. Run data_processing/clean_data.py first."
+        )
 
-# Insert data into PostgreSQL
-all_data.to_sql('economic_data', engine, if_exists='replace', index=False)
+    dataframe = cast(pd.DataFrame, pd.read_csv(
+        filepath_or_buffer=str(PROCESSED_DATA_PATH),
+        parse_dates=["term_start", "term_end", "latest_available_date", "observation_date", "period_end"],
+    ))
+    return dataframe
+
+
+if __name__ == "__main__":
+    engine = create_engine(build_db_url())
+    dataset = load_processed_data()
+    dataset.to_sql(DB_TABLE_NAME, engine, if_exists="replace", index=False)
+
+    print(f"Loaded {len(dataset)} rows into PostgreSQL table '{DB_TABLE_NAME}'.")

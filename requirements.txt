@@ -1,5 +1,6 @@
 pandas
 sqlalchemy
+psycopg[binary]
 python-dotenv
 dash
 plotly
