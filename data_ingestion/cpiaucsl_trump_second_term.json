@@ -1,0 +1,87 @@
+{
+  "series_id": "CPIAUCSL",
+  "indicator": "CPI",
+  "frequency": "monthly",
+  "unit": "Index 1982-1984=100",
+  "presidency_key": "trump_2025",
+  "presidency": "Trump 2nd Term (2025\u2013Present)",
+  "president": "Donald Trump",
+  "term_number": 2,
+  "term_start": "2025-01-20",
+  "term_end": "2026-04-15",
+  "latest_available_date": "2026-03-31",
+  "source": "https://fred.stlouisfed.org/graph/fredgraph.csv",
+  "count": 14,
+  "observations": [
+    {
+      "date": "2025-01-01",
+      "period_end": "2025-01-31",
+      "value": 318.961
+    },
+    {
+      "date": "2025-02-01",
+      "period_end": "2025-02-28",
+      "value": 319.679
+    },
+    {
+      "date": "2025-03-01",
+      "period_end": "2025-03-31",
+      "value": 319.785
+    },
+    {
+      "date": "2025-04-01",
+      "period_end": "2025-04-30",
+      "value": 320.302
+    },
+    {
+      "date": "2025-05-01",
+      "period_end": "2025-05-31",
+      "value": 320.62
+    },
+    {
+      "date": "2025-06-01",
+      "period_end": "2025-06-30",
+      "value": 321.435
+    },
+    {
+      "date": "2025-07-01",
+      "period_end": "2025-07-31",
+      "value": 322.169
+    },
+    {
+      "date": "2025-08-01",
+      "period_end": "2025-08-31",
+      "value": 323.291
+    },
+    {
+      "date": "2025-09-01",
+      "period_end": "2025-09-30",
+      "value": 324.245
+    },
+    {
+      "date": "2025-11-01",
+      "period_end": "2025-11-30",
+      "value": 325.063
+    },
+    {
+      "date": "2025-12-01",
+      "period_end": "2025-12-31",
+      "value": 326.031
+    },
+    {
+      "date": "2026-01-01",
+      "period_end": "2026-01-31",
+      "value": 326.588
+    },
+    {
+      "date": "2026-02-01",
+      "period_end": "2026-02-28",
+      "value": 327.46
+    },
+    {
+      "date": "2026-03-01",
+      "period_end": "2026-03-31",
+      "value": 330.293
+    }
+  ]
+}

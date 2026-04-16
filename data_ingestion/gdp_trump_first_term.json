@@ -1,0 +1,97 @@
+{
+  "series_id": "GDP",
+  "indicator": "GDP",
+  "frequency": "quarterly",
+  "unit": "Billions of Dollars",
+  "presidency_key": "trump_2017",
+  "presidency": "Trump 1st Term (2017\u20132021)",
+  "president": "Donald Trump",
+  "term_number": 1,
+  "term_start": "2017-01-20",
+  "term_end": "2021-01-19",
+  "latest_available_date": "2025-12-31",
+  "source": "https://fred.stlouisfed.org/graph/fredgraph.csv",
+  "count": 16,
+  "observations": [
+    {
+      "date": "2017-01-01",
+      "period_end": "2017-03-31",
+      "value": 19280.084
+    },
+    {
+      "date": "2017-04-01",
+      "period_end": "2017-06-30",
+      "value": 19438.643
+    },
+    {
+      "date": "2017-07-01",
+      "period_end": "2017-09-30",
+      "value": 19692.595
+    },
+    {
+      "date": "2017-10-01",
+      "period_end": "2017-12-31",
+      "value": 20037.088
+    },
+    {
+      "date": "2018-01-01",
+      "period_end": "2018-03-31",
+      "value": 20328.553
+    },
+    {
+      "date": "2018-04-01",
+      "period_end": "2018-06-30",
+      "value": 20580.912
+    },
+    {
+      "date": "2018-07-01",
+      "period_end": "2018-09-30",
+      "value": 20798.73
+    },
+    {
+      "date": "2018-10-01",
+      "period_end": "2018-12-31",
+      "value": 20917.867
+    },
+    {
+      "date": "2019-01-01",
+      "period_end": "2019-03-31",
+      "value": 21111.6
+    },
+    {
+      "date": "2019-04-01",
+      "period_end": "2019-06-30",
+      "value": 21397.938
+    },
+    {
+      "date": "2019-07-01",
+      "period_end": "2019-09-30",
+      "value": 21717.171
+    },
+    {
+      "date": "2019-10-01",
+      "period_end": "2019-12-31",
+      "value": 21933.217
+    },
+    {
+      "date": "2020-01-01",
+      "period_end": "2020-03-31",
+      "value": 21751.238
+    },
+    {
+      "date": "2020-04-01",
+      "period_end": "2020-06-30",
+      "value": 19958.291
+    },
+    {
+      "date": "2020-07-01",
+      "period_end": "2020-09-30",
+      "value": 21704.437
+    },
+    {
+      "date": "2020-10-01",
+      "period_end": "2020-12-31",
+      "value": 22087.16
+    }
+  ]
+}

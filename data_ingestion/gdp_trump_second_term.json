@@ -1,0 +1,37 @@
+{
+  "series_id": "GDP",
+  "indicator": "GDP",
+  "frequency": "quarterly",
+  "unit": "Billions of Dollars",
+  "presidency_key": "trump_2025",
+  "presidency": "Trump 2nd Term (2025\u2013Present)",
+  "president": "Donald Trump",
+  "term_number": 2,
+  "term_start": "2025-01-20",
+  "term_end": "2026-04-15",
+  "latest_available_date": "2025-12-31",
+  "source": "https://fred.stlouisfed.org/graph/fredgraph.csv",
+  "count": 4,
+  "observations": [
+    {
+      "date": "2025-01-01",
+      "period_end": "2025-03-31",
+      "value": 30042.113
+    },
+    {
+      "date": "2025-04-01",
+      "period_end": "2025-06-30",
+      "value": 30485.729
+    },
+    {
+      "date": "2025-07-01",
+      "period_end": "2025-09-30",
+      "value": 31098.027
+    },
+    {
+      "date": "2025-10-01",
+      "period_end": "2025-12-31",
+      "value": 31422.526
+    }
+  ]
+}
