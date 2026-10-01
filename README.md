@@ -70,6 +70,8 @@ For example, **Q1 2021 GDP** is assigned to the Biden term because the quarter e
 - **Raw + processed datasets**: Saves term-level JSON files and a cleaned combined CSV.
 - **Optional PostgreSQL loading**: Supports structured querying through PostgreSQL.
 - **Interactive dashboard**: Lets you switch indicators, select presidencies, and compare both calendar-time values and normalized start-of-term indices.
+- **At-a-glance term summaries**: Shows the latest value, percent change, observation count, and dataset freshness for every selected term.
+- **Reproducible exports**: Downloads the currently filtered dashboard data as a CSV for follow-up analysis.
 - **Notebook-ready data**: The processed CSV is easy to consume in pandas or Jupyter.
 
 ## Setup Instructions
@@ -156,6 +158,14 @@ The dashboard includes:
 - **Indicator switcher**: Toggle among GDP, unemployment, and CPI.
 
 These views make it easier to compare both the raw magnitude of the economy and the trajectory within each term.
+
+The interface also explains each indicator and includes an interpretation note. Presidential comparisons are descriptive rather than causal: administrations inherit existing conditions, policy effects can be delayed, and shocks can originate outside the presidency.
+
+## Run the tests
+
+```bash
+pytest -q
+```
 
 ## Conclusion
 
