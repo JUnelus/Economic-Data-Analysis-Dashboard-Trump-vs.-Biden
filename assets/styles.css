@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Franklin:wght@700;800&display=swap");
+
+:root { --ink: #0f172a; --muted: #64748b; --line: #e2e8f0; --surface: #fff; --canvas: #f1f5f9; --navy: #0b1f3a; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--canvas); color: var(--ink); font-family: "DM Sans", sans-serif; }
+.app-shell { min-height: 100vh; }
+.hero { padding: 58px max(24px, calc((100vw - 1180px) / 2)); color: white; background: radial-gradient(circle at 85% 10%, #1e4f80, transparent 36%), linear-gradient(135deg, #071426, var(--navy)); }
+.eyebrow, .chart-kicker { margin: 0 0 10px; color: #38bdf8; font-size: .75rem; font-weight: 700; letter-spacing: .14em; }
+h1, h2, h3, p { margin-top: 0; }
+h1 { max-width: 780px; margin-bottom: 14px; font: 800 clamp(2rem, 4vw, 3.65rem)/1.06 "Libre Franklin", sans-serif; letter-spacing: -.045em; }
+.hero-copy { max-width: 690px; color: #cbd5e1; font-size: 1.08rem; line-height: 1.6; }
+.freshness { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border: 1px solid #ffffff30; border-radius: 99px; color: #e2e8f0; font-size: .82rem; }
+.status-dot { color: #4ade80; font-size: .65rem; }
+main { max-width: 1180px; margin: -18px auto 0; padding: 0 24px 56px; }
+.control-panel { display: flex; align-items: end; gap: 18px; padding: 22px; border: 1px solid var(--line); border-radius: 14px; background: white; box-shadow: 0 8px 30px #0f172a12; }
+.control { flex: 1 1 260px; min-width: 0; }
+.presidency-control { flex-grow: 1.8; }
+.control label { display: block; margin-bottom: 8px; font-size: .82rem; font-weight: 700; }
+.download-button { min-height: 38px; padding: 0 18px; border: 0; border-radius: 7px; color: white; background: #0f4c81; font: 600 .9rem "DM Sans"; cursor: pointer; white-space: nowrap; }
+.download-button:hover { background: #0b3a62; }
+.indicator-help { margin: 13px 4px 24px; color: var(--muted); font-size: .9rem; }
+.summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+.summary-card { position: relative; overflow: hidden; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.card-accent { position: absolute; inset: 0 0 auto; height: 4px; }
+.card-label { min-height: 37px; margin-bottom: 10px; color: var(--muted); font-size: .8rem; font-weight: 600; }
+.card-value { margin-bottom: 6px; font: 700 1.7rem "Libre Franklin", sans-serif; }
+.card-change { color: var(--ink); margin-bottom: 8px; font-size: .85rem; font-weight: 700; }
+.card-meta { margin-bottom: 0; color: var(--muted); font-size: .75rem; }
+.chart-card { margin-bottom: 22px; padding: 26px 26px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.chart-card h2, .methodology h2 { margin-bottom: 5px; font: 700 1.25rem "Libre Franklin", sans-serif; }
+.chart-description { margin-bottom: 0; color: var(--muted); font-size: .88rem; }
+.methodology { padding: 25px 28px; border-left: 4px solid #0284c7; border-radius: 4px 12px 12px 4px; background: #e0f2fe; }
+.methodology p { margin-bottom: 8px; color: #334155; line-height: 1.55; }
+.methodology p:last-child { margin-bottom: 0; }
+.methodology a { color: #075985; font-weight: 600; }
+@media (max-width: 900px) { .summary-grid { grid-template-columns: repeat(2, 1fr); } .control-panel { flex-wrap: wrap; } }
+@media (max-width: 560px) { .hero { padding-top: 40px; padding-bottom: 48px; } main { padding-inline: 12px; } .control-panel { align-items: stretch; padding: 16px; } .control, .download-button { flex-basis: 100%; } .summary-grid { grid-template-columns: 1fr; } .chart-card { padding: 20px 10px 8px; } }
