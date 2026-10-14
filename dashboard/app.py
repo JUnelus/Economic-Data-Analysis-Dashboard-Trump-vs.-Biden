@@ -88,7 +88,6 @@ def build_summary_cards(filtered_df: pd.DataFrame) -> list:
         group = group.sort_values("observation_date")
         first, latest = group.iloc[0], group.iloc[-1]
         percent_change = (latest["value"] / first["value"] - 1) * 100
-        change_class = "positive" if percent_change >= 0 else "negative"
         cards.append(
             html.Article(
                 className="summary-card",
@@ -98,7 +97,7 @@ def build_summary_cards(filtered_df: pd.DataFrame) -> list:
                     html.H3(format_value(latest["value"], latest["indicator"]), className="card-value"),
                     html.P(
                         f"{percent_change:+.1f}% since first observation",
-                        className=f"card-change {change_class}",
+                        className="card-change",
                     ),
                     html.P(
                         f"Through {latest['period_end']:%b %Y} · {len(group)} observations",
@@ -117,7 +116,17 @@ def empty_figure(message: str):
     return figure
 
 
-app = dash.Dash(__name__, title="US Economy by Presidency")
+def indicator_freshness(indicator: str) -> str:
+    """Report observation coverage, not a download or publication date."""
+    periods = DATAFRAME.loc[DATAFRAME["indicator"] == indicator, "period_end"].dropna()
+    if periods.empty:
+        return f"{indicator}: no observations available"
+    return f"{indicator} observations through {periods.max():%B %Y}"
+
+
+app = dash.Dash(
+    __name__, title="US Economy by Presidency", assets_folder=str(PROJECT_ROOT / "assets")
+)
 server = app.server
 
 app.layout = html.Div(
@@ -136,7 +145,7 @@ app.layout = html.Div(
                     className="freshness",
                     children=[
                         html.Span("●", className="status-dot"),
-                        f"Dataset current through {DATAFRAME['latest_available_date'].max():%B %Y}",
+                        html.Span(indicator_freshness("GDP"), id="indicator-freshness"),
                     ],
                 ),
             ],
@@ -236,6 +245,7 @@ app.layout = html.Div(
     Output("indexed-graph", "figure"),
     Output("summary-cards", "children"),
     Output("indicator-help", "children"),
+    Output("indicator-freshness", "children"),
     Input("indicator-dropdown", "value"),
     Input("presidency-dropdown", "value"),
 )
@@ -243,7 +253,7 @@ def update_dashboard(selected_indicator: str, selected_presidencies: list[str] |
     filtered_df = filter_dataset(selected_indicator, selected_presidencies)
     if filtered_df.empty:
         empty = empty_figure("No observations match this selection.")
-        return empty, empty, [], INDICATOR_HELP.get(selected_indicator, "")
+        return empty, empty, [], INDICATOR_HELP.get(selected_indicator, ""), indicator_freshness(selected_indicator)
 
     frequency = filtered_df["frequency"].iloc[0]
     period_axis_label = "Quarterly observations since term start" if frequency == "quarterly" else "Monthly observations since term start"
@@ -285,7 +295,7 @@ def update_dashboard(selected_indicator: str, selected_presidencies: list[str] |
     indexed_fig.update_xaxes(title_text=period_axis_label, showgrid=False)
     indexed_fig.update_yaxes(title_text="Index (first observation = 100)", gridcolor="#e2e8f0")
 
-    return calendar_fig, indexed_fig, build_summary_cards(filtered_df), INDICATOR_HELP.get(selected_indicator, "")
+    return calendar_fig, indexed_fig, build_summary_cards(filtered_df), INDICATOR_HELP.get(selected_indicator, ""), indicator_freshness(selected_indicator)
 
 
 @callback(

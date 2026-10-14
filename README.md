@@ -70,7 +70,8 @@ For example, **Q1 2021 GDP** is assigned to the Biden term because the quarter e
 - **Raw + processed datasets**: Saves term-level JSON files and a cleaned combined CSV.
 - **Optional PostgreSQL loading**: Supports structured querying through PostgreSQL.
 - **Interactive dashboard**: Lets you switch indicators, select presidencies, and compare both calendar-time values and normalized start-of-term indices.
-- **At-a-glance term summaries**: Shows the latest value, percent change, observation count, and dataset freshness for every selected term.
+- **At-a-glance term summaries**: Shows the latest value, percent change and observation count for every selected term. Change text uses neutral colors and does not imply that an increase is favorable.
+- **Indicator coverage**: The header reports the latest observation period end for the selected indicator across all terms, independently of the term filter. This is not a download or publication date; bundled observations remain a snapshot until refreshed.
 - **Reproducible exports**: Downloads the currently filtered dashboard data as a CSV for follow-up analysis.
 - **Notebook-ready data**: The processed CSV is easy to consume in pandas or Jupyter.
 

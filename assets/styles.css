@@ -24,9 +24,7 @@ main { max-width: 1180px; margin: -18px auto 0; padding: 0 24px 56px; }
 .card-accent { position: absolute; inset: 0 0 auto; height: 4px; }
 .card-label { min-height: 37px; margin-bottom: 10px; color: var(--muted); font-size: .8rem; font-weight: 600; }
 .card-value { margin-bottom: 6px; font: 700 1.7rem "Libre Franklin", sans-serif; }
-.card-change { margin-bottom: 8px; font-size: .85rem; font-weight: 700; }
-.card-change.positive { color: #15803d; }
-.card-change.negative { color: #b91c1c; }
+.card-change { color: var(--ink); margin-bottom: 8px; font-size: .85rem; font-weight: 700; }
 .card-meta { margin-bottom: 0; color: var(--muted); font-size: .75rem; }
 .chart-card { margin-bottom: 22px; padding: 26px 26px 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
 .chart-card h2, .methodology h2 { margin-bottom: 5px; font: 700 1.25rem "Libre Franklin", sans-serif; }
